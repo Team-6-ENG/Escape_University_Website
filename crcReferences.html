@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENG1 Project - Cohort 4 Team 6</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div id="head">
+        <header class="header">
+            <div class="container">
+                <h1>Escape from University</h1>
+                <p class="subtitle">ENG1 Project - Cohort 4 Team 6</p>
+            </div>
+        </header>
+        <header class="nav">
+            <div class="container">
+                <nav>
+                    <a href="index.html">Overview</a>
+                    <a href="files.html">Project Docs</a>
+                    <div class="dropdown">
+                        <a id="active" href="#architecture-design" class="dropbtn">Architecture Design</a>
+                        <div class="dropdown-content">
+                            <a href="crc.html">CRC cards</a>
+                            <a id="active" href="crcReferences.html">CRC to requirements map</a>
+                            <a href="sequence-diagrams.html">Sequence Diagrams</a>
+                            <a href="class-diagrams.html">Class Diagrams</a>
+                        </div>
+                    </div>
+                    <a href="progressPlan.html">Planning</a>
+                    <a href="attributions.html">Attributions</a>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <main>
+        <section id="requirements" class="section">
+            <div class="container">
+                <h2>Functional Requirements</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Requirement ID</th>
+                                <th>Requirement Description</th>
+                                <th>CRC Cards Involved</th>
+                                <th>Implementation Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>UR_DISPLAY<br>FR_RESIZE</td>
+                                <td>Displays on varying screen sizes</td>
+                                <td>Main</td>
+                                <td>FitViewport</td>
+                            </tr>
+                            <tr>
+                                <td>UR_MAP<br>FR_COLLISION<br>FR_MAP_LIMIT</td>
+                                <td>University maze style map + collision system</td>
+                                <td>GameScreen, Player</td>
+                                <td>TiledMap with collision layers</td>
+                            </tr>
+                            <tr>
+                                <td>UR_PLAYER_CONTROL<br>FR_KEYBOARD_CONTROL<br>FR_MOUSE_CONTROL</td>
+                                <td>Keyboard/mouse input control</td>
+                                <td>Player, GameScreen</td>
+                                <td>WASD/Arrow movement + item interaction and left click</td>
+                            </tr>
+                            <tr>
+                                <td>UR_GAME_COMPLETION<br>FR_WIN_LOSE<br>FR_WIN_LOSE_SCREEN</td>
+                                <td>Win/lose game completion screens</td>
+                                <td>GameScreen, WinScreen, GameOverScreen</td>
+                                <td>5-minute timer with win/lose screen + bus escape event</td>
+                            </tr>
+                            <tr>
+                                <td>UR_PLAYER_ABILITIES<br>FR_TORCH<br>FR_KEYCARD<br>FR_FOOD</td>
+                                <td>Player interactions with surroundings/items</td>
+                                <td>Player, Collectable, RonCookeScreen, LangwithScreen</td>
+                                <td>Torch lighting, keycard access, pizza speed boost</td>
+                            </tr>
+                            <tr>
+                                <td>UR_CHALLENGE<br>FR_GOOSE<br>FR_HIDDEN_GOOSE_EVENT</td>
+                                <td>Challenging interactions/events</td>
+                                <td>Goose, GameScreen</td>
+                                <td>Goose steals torch, baby geese hidden event</td>
+                            </tr>
+                            <tr>
+                                <td>UR_OS<br>FR_OS</td>
+                                <td>Cross-platform compatibility</td>
+                                <td>Main</td>
+                                <td>LibGDX framework runs on Windows, Mac and Linux</td>
+                            </tr>
+                            <tr>
+                                <td>UR_STYLE<br>FR_VISUALS</td>
+                                <td>Top-down 2D university map</td>
+                                <td>SpriteAnimations, All Screens</td>
+                                <td>Pixel art style with character animations and university setting</td>
+                            </tr>
+                            <tr>
+                                <td>UR_TIME_LIMIT<br>FR_COUNTDOWN<br>FR_PAUSE_COUNTDOWN</td>
+                                <td>Limited game duration</td>
+                                <td>GameScreen, PauseScreen, Main</td>
+                                <td>5-minute countdown - pause during pause menu</td>
+                            </tr>
+                            <tr>
+                                <td>UR_MENUS<br>FR_MAIN_MENU<br>FR_SETTINGS<br>FR_PAUSE<br>FR_LOCAL_SCORE</td>
+                                <td>Multiple menu screens</td>
+                                <td>MainMenuScreen, CharacterSelectScreen, PauseScreen, InstrunctionsScreen</td>
+                                <td>Main menu, character select, pause, and instruction screens</td>
+                            </tr>
+                            <tr>
+                                <td>UR_UI<br>FR_SCORE<br>FR_ACTIVE_CHALLENGE<br>FR_CLOCK</td>
+                                <td>Pleasant and understandable UI</td>
+                                <td>GameScreen, All Menu Screens</td>
+                                <td>HUD with score, timer, events and inventory</td>
+                            </tr>
+                            <tr>
+                                <td>UR_ENEMY<br>FR_E_PATROL</td>
+                                <td>Enemies (goose) that patrol map</td>
+                                <td>Goose</td>
+                                <td>Goose AI with pursuit/patrol behaviour</td>
+                            </tr>
+                            <tr>
+                                <td>UR_POINTS<br>FR_BONUS<br>FR_INTERACTION_BONUS</td>
+                                <td>Points collection system</td>
+                                <td>GameScreen, Collectable</td>
+                                <td>Score based on timer and events.</td>
+                            </tr>
+                            <tr>
+                                <td>UR_LEADERBOARD</td>
+                                <td>View past scores</td>
+                                <td>Not implemented</td>
+                                <td>Not implemented</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <h2 style="margin-top:3rem;">Non-Functional Requirements</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Requirement ID</th>
+                                <th>Description</th>
+                                <th>CRC Cards Involved</th>
+                                <th>Implementation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>NFR_NAVIGATION</td>
+                                <td>Map easily traversed</td>
+                                <td>GameScreen, Player</td>
+                                <td>Optimize map size + move speed</td>
+                            </tr>
+                            <tr>
+                                <td>NFR_PLAYER_RESPONSE</td>
+                                <td>Quick input response (&lt;1ms)</td>
+                                <td>Player, GameScreen</td>
+                                <td>Direct input handling in game loop</td>
+                            </tr>
+                            <tr>
+                                <td>NFR_GAME_END</td>
+                                <td>Game finishes within set time</td>
+                                <td>GameScreen, Main</td>
+                                <td>5-minute timer</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Cohort 4 Team 6 - University of York</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

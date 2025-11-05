@@ -13,97 +13,524 @@
     <div id="head">
         <header class="header">
             <div class="container">
-                <h1>Escape from Uni</h1>
+                <h1>Escape from University</h1>
                 <p class="subtitle">ENG1 Project - Cohort 4 Team 6</p>
-
             </div>
         </header>
         <header class="nav">
-
-            <div class=container>
+            <div class="container">
                 <nav>
                     <a href="index.html">Overview</a>
                     <a href="files.html">Project Docs</a>
                     <div class="dropdown">
-                        <a id="active" href="#architecture-design" class="dropbtn">Architecture Design </a>
+                        <a id="active" href="#architecture-design" class="dropbtn">Architecture Design</a>
                         <div class="dropdown-content">
                             <a id="active" href="crc.html">CRC cards</a>
+                            <a href="crcReferences.html">CRC to requirements map</a>
                             <a href="sequence-diagrams.html">Sequence Diagrams</a>
                             <a href="class-diagrams.html">Class Diagrams</a>
                         </div>
                     </div>
+                    <a href="progressPlan.html">Planning</a>
                     <a href="attributions.html">Attributions</a>
                 </nav>
-
             </div>
         </header>
     </div>
+
     <main>
+<section id="crc" class="section">
+  <div class="container">
+    <h2>Classes</h2>
+    <div class="crc-grid">
+
+      <!-- Main -->
+      <div class="crc-card">
+        <h3>Main</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Initializes and configures the LibGDX game environment.</li>
+          <li>Creates global resources such as SpriteBatch, BitmapFont, FitViewport, and Skin.</li>
+          <li>Sets the initial screen to MainMenuScreen.</li>
+          <li>Manages screen transitions between all stages of the game (MainMenuScreen, CharacterSelectScreen, GameScreen, etc.).</li>
+          <li>Handles global rendering cycle and resource cleanup when the application ends.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>MainMenuScreen, CharacterSelectScreen, GameScreen, WinScreen, GameOverScreen, PauseScreen - controlled through screen transitions.</li>
+          <li>Skin, SpriteBatch, Fonts - shared resources accessed by all screens.</li>
+        </ul>
+      </div>
+
+      <!-- MainMenuScreen -->
+      <div class="crc-card">
+        <h3>MainMenuScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays the main menu interface with options such as Play and Exit.</li>
+          <li>Loads and renders the background image and game title text.</li>
+          <li>Handles button creation, layout, and user input using Stage and Skin.</li>
+          <li>Initiates the character selection screen when Play is selected or closes the application when Exit is clicked.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - provides access to shared assets (batch, menuFont, buttonSkin) and handles screen transitions.</li>
+          <li>CharacterSelectScreen - launched when the player selects “Play.”</li>
+          <li>LibGDX Stage - used for UI rendering and input event management.</li>
+        </ul>
+      </div>
+
+      <!-- CharacterSelectScreen -->
+      <div class="crc-card">
+        <h3>CharacterSelectScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays the character selection interface where the player chooses between male and female characters.</li>
+          <li>Loads and renders background and character images from the asset folders.</li>
+          <li>Uses Stage, Skin, and ImageButton to create interactive UI elements.</li>
+          <li>Updates the selected character path and transitions to GameScreen when a character is chosen.</li>
+          <li>Provides a Back button to return to the MainMenuScreen.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - supplies shared resources (batch, viewport, menuFont, buttonSkin) and handles screen transitions.</li>
+          <li>GameScreen - receives the selected sprite path and starts gameplay with that character.</li>
+          <li>MainMenuScreen - opened when the “Back” button is clicked.</li>
+        </ul>
+      </div>
+
+      <!-- GameScreen -->
+      <div class="crc-card">
+        <h3>GameScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Runs main gameplay loop.</li>
+          <li>Handles entity behavior, collisions, and interactions.</li>
+          <li>Updates lighting and animation each frame.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Player - receives input and updates position.</li>
+          <li>Lighting - controls visual illumination.</li>
+          <li>Goose - manages enemy AI.</li>
+          <li>PauseScreen, WinScreen, GameOverScreen - for game state transitions.</li>
+        </ul>
+      </div>
+
+      <!-- Player -->
+      <div class="crc-card">
+        <h3>Player</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Controls player movement, animation, and collision.</li>
+          <li>Handles input for walking and direction changes.</li>
+          <li>Updates torch position and rotation based on player state.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - provides viewport for boundaries.</li>
+          <li>GameScreen - updates player each frame.</li>
+          <li>SpriteAnimations - provides animation frames.</li>
+        </ul>
+      </div>
+
+      <!-- Goose -->
+      <div class="crc-card">
+        <h3>Goose</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Defines enemy behavior and pathfinding logic.</li>
+          <li>Detects collision with player and triggers game-over state.</li>
+          <li>Updates sprite movement and animations.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>GameScreen - manages updates and rendering.</li>
+          <li>Player - detects collisions and interactions.</li>
+        </ul>
+      </div>
+
+      <!-- Lighting -->
+      <div class="crc-card">
+        <h3>Lighting</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Generates lighting and shadow effects on map and characters.</li>
+          <li>Updates illumination levels dynamically.</li>
+          <li>Enhances visual depth and realism in gameplay scenes.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>GameScreen - calls lighting updates per frame.</li>
+          <li>Player - lighting reacts to the player's position.</li>
+        </ul>
+      </div>
+
+      <!-- PauseScreen -->
+      <div class="crc-card">
+        <h3>PauseScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays pause UI, allowing players to resume or back to the main menu.</li>
+          <li>Suspends updates for all entities during pause state.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>GameScreen - paused and resumed through this screen.</li>
+          <li>MainMenuScreen - opened when the “Main Menu” button is clicked.</li>
+          <li>Main - manages transitions between screens.</li>
+        </ul>
+      </div>
+
+      <!-- WinScreen -->
+      <div class="crc-card">
+        <h3>WinScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays the victory screen when the player meets win conditions.</li>
+          <li>Renders congratulatory text and player score using the game’s shared menuFont.</li>
+          <li>Waits for user input (touch/click) to return to the main menu.</li>
+          <li>Uses Stage and ExtendViewport for consistent layout across screen sizes.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - manages screen switching and resource sharing (viewport, batch, fonts).</li>
+          <li>MainMenuScreen - opened when the user clicks to return to the main menu.</li>
+        </ul>
+      </div>
+
+      <!-- GameOverScreen -->
+      <div class="crc-card">
+        <h3>GameOverScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays the Game Over screen when the player loses.</li>
+          <li>Shows a custom death message describing how the player failed.</li>
+          <li>Uses menuFont for rendering text and Stage with ExtendViewport for scalable layout.</li>
+          <li>Waits for user input (click) to return to the main menu.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - provides viewport, batch, and handles screen switching.</li>
+          <li>MainMenuScreen - opened when the user clicks after the Game Over screen is displayed.</li>
+        </ul>
+      </div>
+
+      <!-- AudioManager -->
+      <div class="crc-card">
+        <h3>AudioManager</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Loads sound effects and music assets from specified files.</li>
+          <li>Plays, loops, pauses, and stops sound effects and music.</li>
+          <li>Adjusts the volume of music and sound effects.</li>
+          <li>Disposes of audio resources when no longer needed.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - provides gameVolume and musicVolume settings for controlling sound levels.</li>
+          <li>GameScreen - requests sound effects based on game events.</li>
+        </ul>
+      </div>
+
+      <!-- BuildingManager -->
+      <div class="crc-card">
+        <h3>BuildingManager</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Manages building related interactions and triggers.</li>
+          <li>Detects when the player is near buildings and displays enter prompts.</li>
+          <li>Allows entering/exiting buildings based on user input.</li>
+          <li>Updates the building interaction state.</li>
+          <li>Renders building-related visuals and UI prompts.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - manages screen transitions.</li>
+          <li>GameScreen - controls the game state and switches between building and world views.</li>
+          <li>Player - tracks player position and triggers interactions with buildings.</li>
+          <li>AudioManager - plays sound effects.</li>
+        </ul>
+      </div>
+
+      <!-- Collectable -->
+      <div class="crc-card">
+        <h3>Collectable</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Represents collectable items in the game.</li>
+          <li>Tracks item position, visibility, and state (collected or not).</li>
+          <li>Detects if the player is in range to collect the item.</li>
+          <li>Marks the item as collected and updates its size for the inventory bar.</li>
+          <li>Plays a sound effect when collected.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>AudioManager - plays collection sound.</li>
+          <li>Player - interacts with collectable items (checks range and collects them).</li>
+        </ul>
+      </div>
+
+      <!-- InstructionsScreen -->
+      <div class="crc-card">
+        <h3>InstructionsScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays the instructions screen before the game starts.</li>
+          <li>Displays the game’s title and a brief introduction.</li>
+          <li>Creates and positions UI elements.</li>
+          <li>Handles user input to transition to the next screen.</li>
+          <li>Manages input processors for UI interaction.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - provides assets and controls screen transitions.</li>
+          <li>GameScreen - switches to the game screen when Play is clicked.</li>
+          <li>CharacterSelectScreen - navigated to when the Space key is pressed.</li>
+          <li>Stage, Skin - used to render and handle UI elements like buttons.</li>
+        </ul>
+      </div>
+
+      <!-- LangwithScreen -->
+      <div class="crc-card">
+        <h3>LangwithScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays the interior of the Langwith building.</li>
+          <li>Manages player movement, interactions, and item collection.</li>
+          <li>Handles UI rendering for inventory, events tracker, and game timer.</li>
+          <li>Pauses gameplay when the Pause key is pressed and transitions to the Pause screen.</li>
+          <li>Updates game events and displays relevant information on-screen.</li>
+          <li>Allows the player to interact with collectable items.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - provides game assets and manages screen transitions.</li>
+          <li>GameScreen - provides game state and updates player speed.</li>
+          <li>BuildingManager - manages building-related logic.</li>
+          <li>Player - tracks player movement and handles interactions with collectable items.</li>
+          <li>Collectable - defines and updates collectable items within the game world.</li>
+        </ul>
+      </div>
+
+      <!-- RonCookeScreen -->
+      <div class="crc-card">
+        <h3>RonCookeScreen</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Displays the interior of the Ron Cooke building.</li>
+          <li>Manages player movement, interactions, and item collection (key card, torch).</li>
+          <li>Handles speech events and displays messages from the receptionist.</li>
+          <li>Updates game state, including timer and events tracker.</li>
+          <li>Pauses gameplay when the Pause key is pressed and transitions to the Pause screen.</li>
+          <li>Renders UI elements, such as collected items, score, and time.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>Main - provides game assets and manages screen transitions.</li>
+          <li>BuildingManager - handles building-related logic and updates.</li>
+          <li>GameScreen - tracks game state and updates player speed.</li>
+          <li>Player - controls player movement and interactions with items.</li>
+          <li>Collectable - defines and updates collectable items within the game world.</li>
+        </ul>
+      </div>
+
+      <!-- SpriteAnimations -->
+      <div class="crc-card">
+        <h3>SpriteAnimations</h3>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Loads and splits sprite sheets into individual frames for animations.</li>
+          <li>Stores animations in a dictionary based on configuration information.</li>
+          <li>Provides methods to generate animations from sprite sheets.</li>
+          <li>Manages map layer information for boundary detection.</li>
+          <li>Disposes of the sprite sheet when no longer needed.</li>
+        </ul>
+        <p><strong>Collaborators:</strong></p>
+        <ul>
+          <li>TiledMapTileLayer - used to detect map boundaries for animation positioning.</li>
+          <li>TextureRegion - used for managing sprite sheet regions.</li>
+          <li>Animation - used for creating the animations from sprite frames.</li>
+          <li>GameScreen - may interact with animations for character movement or actions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
 
-        <section id="crc" class="section">
+        <section id="initial-crc" class="section">
             <div class="container">
-                <h2>Classes</h2>
-                <p>We used CRC (Class–Responsibility–Collaboration) cards to model the game’s object-oriented structure.
-                </p>
+                <h2>Initial CRC Cards - Not Used in Project</h2>
+                <p>These are the initial CRC cards created during early planning, which were not used in the final project.</p>
 
                 <div class="crc-grid">
+
+                    <!-- Main/EscapeFromUni -->
                     <div class="crc-card">
-                        <h3>Main</h3>
-                        <p><strong>Responsibilities:<br></strong>
-                            - Start the game<br>
-                            - Create main Screen instances<br>
-                            - Initialize global resources (sound effects, fonts, etc.)</p>
-                        <p><strong>Collaborators:</strong> GameScreen, AudioManager </p>
+                        <h3>Main/EscapeFromUni</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Initializes and configures the LibGDX game environment.</li>
+                            <li>Manages global resources.</li>
+                            <li>Handles main game loop.</li>
+                            <li>Manages asset/resource rendering.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>StateManager - Game transitions.</li>
+                            <li>AssetManager - Resource rendering/deposing.</li>
+                            <li>All screen classes - Screen rendering.</li>
+                        </ul>
                     </div>
 
+                    <!-- StateManager -->
+                    <div class="crc-card">
+                        <h3>StateManager</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Track/manage current game state.</li>
+                            <li>Handles state transitions.</li>
+                            <li>Update variables for state changes.</li>
+                            <li>Possibly maintain state history for back button (unlikely due to small number of states).</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>EscapeFromUni - called to change state.</li>
+                            <li>EventManager - Event change notification for state changes.</li>
+                            <li>All Screen classes - state-orientated screen changes.</li>
+                        </ul>
+                    </div>
+
+                    <!-- AssetManager -->
+                    <div class="crc-card">
+                        <h3>AssetManager</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Loads/caches game assets (textures, sprites, maps, sounds, etc.).</li>
+                            <li>Manages memory usage and unloading assets.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>EscapeFromUni - initialization/removal coordination of assets and more.</li>
+                            <li>All screen classes - provides the assets for rendering.</li>
+                            <li>GameScreen - Provides the player sprites, enemy sprites, map, and UI assets.</li>
+                        </ul>
+                    </div>
+
+                    <!-- InputHandler -->
+                    <div class="crc-card">
+                        <h3>InputHandler</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Centralized input processing for movement and other inputs.</li>
+                            <li>Switching input definitions based on screen.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>StateManager - For screen-based input switching.</li>
+                            <li>GameScreen - Provides gameplay specific inputs.</li>
+                            <li>Player - Sends/inherits the movement inputs.</li>
+                            <li>Menu Screens - Menu navigation inputs/buttons.</li>
+                        </ul>
+                    </div>
+
+                    <!-- EventManager -->
+                    <div class="crc-card">
+                        <h3>EventManager</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Manages, tracks and enacts events.</li>
+                            <li>Handles event orders and conditions.</li>
+                            <li>Coordinates with other classes for communication of state, screen, etc.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>All game classes - for event requests and event updates.</li>
+                            <li>StateManager - states that rely on events or vice versa for verification.</li>
+                            <li>GameScreen - gameplay related events (e.g. item pickup, damage/collision).</li>
+                        </ul>
+                    </div>
+
+                    <!-- GameScreen -->
                     <div class="crc-card">
                         <h3>GameScreen</h3>
-                        <p><strong>Responsibilities:</strong>
-                            - Manage the main game loop
-                            - Render the map
-                            - Update player and item states
-                            - Detect collisions</p>
-                        <p><strong>Collaborators:</strong> Player, Goose, BuildingManager, Collectable, Lighting </p>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Main game loop for rendering and updating.</li>
+                            <li>Coordinates any entity interactions/updates.</li>
+                            <li>Handles collision detection.</li>
+                            <li>Manages the game world’s state.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>StateManager - for pausing/game ending screens.</li>
+                            <li>InputHandler - receives player inputs.</li>
+                            <li>EventManager - enact gameplay events.</li>
+                            <li>HUD - provides information for the state of HUD.</li>
+                            <li>AssetManager - retrieves game screen relevant assets.</li>
+                        </ul>
                     </div>
 
+                    <!-- MainMenuScreen -->
                     <div class="crc-card">
-                        <h3>Player</h3>
-                        <p><strong>Responsibilities:</strong>
-                            - Control player movement
-                            - Handle input processing
-                            - Collect items
-                            - Manage score</p>
-                        <p><strong>Collaborators:</strong> GameScreen, Goose, Collectable </p>
+                        <h3>MainMenuScreen</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Display main menu UI and navigation options.</li>
+                            <li>Renders menu background (if there is one) and title/text fonts.</li>
+                            <li>Handles button interactions.</li>
+                            <li>Gives access to settings/character selection.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>StateManager - menu state management.</li>
+                            <li>InputHandler - menu inputs for navigation.</li>
+                            <li>AssetManager - menu assets (mostly fonts).</li>
+                            <li>CharacterSelectScreen - screen transition with button in menu.</li>
+                        </ul>
                     </div>
 
+                    <!-- CharacterSelectScreen -->
                     <div class="crc-card">
-                        <h3>Goose</h3>
-                        <p><strong>Responsibilities:</strong>
-                            - Enemy implementation
-                            - Torch stealing logic
-                            - Escape and chasing behavior</p>
-                        <p><strong>Collaborators:</strong> GameScreen, Player </p>
+                        <h3>CharacterSelectScreen</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Display character selection UI.</li>
+                            <li>Transition to gameplay (GameScreen) with selected character.</li>
+                            <li>Displays preview of character options.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>MainMenuScreen - return/back inputs.</li>
+                            <li>GameScreen - character selection input.</li>
+                            <li>AssetManager - character sprites and UI assets/fonts.</li>
+                            <li>InputHandler - handles input processing for navigation.</li>
+                        </ul>
                     </div>
 
+                    <!-- HUD -->
                     <div class="crc-card">
-                        <h3>BuildingManager</h3>
-                        <p><strong>Responsibilities:</strong>
-                            - Manage map buildings and obstacles
-                            - Provide collision detection</p>
-                        <p><strong>Collaborators:</strong> GameScreen, Player, Goose </p>
+                        <h3>HUD</h3>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Renders/loads game overlay.</li>
+                            <li>Displays possibly sprite information or timers.</li>
+                            <li>Provides small tutorials/explanations and events.</li>
+                        </ul>
+                        <p><strong>Collaborators:</strong></p>
+                        <ul>
+                            <li>GameScreen - receives updates and changes based on game updates.</li>
+                            <li>EventManager - changes based on UI relevant events.</li>
+                            <li>AssetManager - HUD assets.</li>
+                            <li>Player - player information if relevant to HUD.</li>
+                        </ul>
                     </div>
 
-                    <div class="crc-card">
-                        <h3>Collectable</h3>
-                        <p><strong>Responsibilities:</strong>
-                            - Define collectible item properties
-                            - Implement interaction logic</p>
-                        <p><strong>Collaborators:</strong> GameScreen, Player </p>
-                    </div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer class="footer">
@@ -111,6 +538,7 @@
             <p>&copy; 2025 Cohort 4 Team 6 - University of York</p>
         </div>
     </footer>
-</body>
 
+</body>
 </html>
+
